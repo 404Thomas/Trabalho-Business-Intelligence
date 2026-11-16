@@ -6,10 +6,10 @@ e testa se a integração ENEM x Censo Escolar x PIB funciona na prática.
 
 Uso:
   pip install pandas
-  python perfilar_bases_2023.py \
-      --enem  data/raw/enem/MICRODADOS_ENEM_2023.csv \
-      --censo data/raw/censo/microdados_ed_basica_2023.csv \
-      --pib   data/processed/pib_municipal.csv
+  python etl/perfilar_bases_2023.py \
+      --enem  dados/raw/enem/MICRODADOS_ENEM_2023.csv \
+      --censo dados/raw/censo/microdados_ed_basica_2023.csv \
+      --pib   dados/processed/pib_municipal.csv
 
 Saída: docs/perfilamento_2023.md (e o mesmo conteúdo no terminal)
 """
@@ -18,6 +18,8 @@ import argparse
 from pathlib import Path
 
 import pandas as pd
+
+RAIZ = Path(__file__).resolve().parent.parent  # raiz do repositório
 
 CHUNK = 500_000
 CHAVE = ["co_municipio", "tp_dependencia", "tp_localizacao"]
@@ -178,8 +180,8 @@ def main():
     p = argparse.ArgumentParser()
     p.add_argument("--enem", required=True)
     p.add_argument("--censo", required=True)
-    p.add_argument("--pib", default="data/processed/pib_municipal.csv")
-    p.add_argument("--saida", default="docs/perfilamento_2023.md")
+    p.add_argument("--pib", default=str(RAIZ / "dados" / "processed" / "pib_municipal.csv"))
+    p.add_argument("--saida", default=str(RAIZ / "docs" / "perfilamento_2023.md"))
     args = p.parse_args()
 
     out("# Perfilamento preliminar das bases - 2023\n")

@@ -3,14 +3,14 @@ Extração do PIB e PIB per capita municipal (IBGE - PIB dos Municípios) via AP
 e deflação pelo IPCA, para o período de análise do projeto de BI (2014-2023).
 
 Camadas geradas:
-  data/raw/ibge/pib_<tabela>_<ano>.json   -> resposta bruta da API (reprodutibilidade)
-  data/raw/ibge/ipca_<ano>.json
-  data/processed/pib_municipal.csv        -> tabela tratada, pronta para o DW
+  dados/raw/ibge/pib_<tabela>_<ano>.json   -> resposta bruta da API (reprodutibilidade)
+  dados/raw/ibge/ipca_<ano>.json
+  dados/processed/pib_municipal.csv        -> tabela tratada, pronta para o DW
 
 Uso:
   pip install requests pandas
-  python extrair_pib_municipal.py
-  python extrair_pib_municipal.py --inicio 2014 --fim 2023 --ano-base 2023
+  python etl/extrair_pib_municipal.py
+  python etl/extrair_pib_municipal.py --inicio 2014 --fim 2023 --ano-base 2023
 """
 
 import argparse
@@ -33,9 +33,9 @@ TABELAS_PIB = [5938]
 
 TABELA_IPCA = 1737  # IPCA - série histórica mensal (número-índice)
 
-RAIZ = Path(__file__).resolve().parent
-DIR_RAW = RAIZ / "data" / "raw" / "ibge"
-DIR_PROC = RAIZ / "data" / "processed"
+RAIZ = Path(__file__).resolve().parent.parent  # raiz do repositório
+DIR_RAW = RAIZ / "dados" / "raw" / "ibge"
+DIR_PROC = RAIZ / "dados" / "processed"
 
 
 # --------------------------------------------------------------------------- #

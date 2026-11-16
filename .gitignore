@@ -1,4 +1,14 @@
 aula/
-dados/
 .venv/
 __pycache__/
+
+# Dados brutos e tratados ficam fora do git (são grandes e reprodutíveis pelo ETL).
+# Os README.md das pastas continuam versionados para mostrar a estrutura.
+dados/raw/**
+dados/processed/**
+!dados/raw/README.md
+!dados/processed/README.md
+
+# Banco do DW (gerado pelo etl/run_etl.py)
+dw/*.duckdb
+dw/*.duckdb.wal
